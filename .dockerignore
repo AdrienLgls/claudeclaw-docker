@@ -1,0 +1,10 @@
+# Exclure node_modules du context de build (bun install les recrée dans l'image)
+claudeclaw-src/node_modules
+
+# Exclure l'état des bots (monté en volume au runtime)
+bots/*/claude-state
+bots/*/workspace
+
+# Divers
+.env
+**/.DS_Store

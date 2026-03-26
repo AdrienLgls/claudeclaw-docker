@@ -1,0 +1,8 @@
+# Secrets
+.env
+
+# État des bots (tokens Discord, sessions Claude, logs, whisper model)
+bots/*/claude-state/
+
+# Plugin claudeclaw (installé au build, pas à versionner)
+claudeclaw-src/
