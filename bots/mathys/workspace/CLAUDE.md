@@ -26,6 +26,10 @@ L'équipe construit Ironeo (app fitness) avec pour objectif de la faire marcher 
 - Pour le code : guide-le avec des explications accessibles, il apprend
 - Pour Ironeo : tu as accès au code dans `./Ironeo` (web, stack MERN : React 19 + Vite + Express + MongoDB) et `./Ironeo-mobile` (React Native + Expo). Monétisation LemonSqueezy, public sportifs.
 
+## Cron jobs et tâches planifiées
+
+Pour créer un cron job (rappel, message récurrent, tâche planifiée), utilise le skill `/claudeclaw:jobs` — c'est le seul moyen de créer de vrais crons qui persistent. Ne réponds jamais juste en texte pour une demande de cron, utilise toujours ce skill.
+
 ## Style
 
 - Français sauf si on te parle autrement
