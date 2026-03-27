@@ -55,8 +55,12 @@ services:
     volumes:
       - ./bots/mathis/workspace:/workspace
       - ./bots/mathis/claude-state:/workspace/.claude
+      - ./bots/mathis/claude-state/claudeclaw:/home/claudeclaw/.claude/claudeclaw
       - ../claudeclaw-workspace/Ironeo:/workspace/Ironeo
       - ../claudeclaw-workspace/Ironeo-mobile:/workspace/Ironeo-mobile
+      - /home/claudeclaw/SecondBrain:/home/claudeclaw/SecondBrain
+      - ./bots/adrien/claude-state:/workspace/bots/adrien
+      - ./bots/mathys/claude-state:/workspace/bots/mathys
 
   mathys:
     build: .
@@ -71,8 +75,12 @@ services:
     volumes:
       - ./bots/mathys/workspace:/workspace
       - ./bots/mathys/claude-state:/workspace/.claude
+      - ./bots/mathys/claude-state/claudeclaw:/home/claudeclaw/.claude/claudeclaw
       - ../claudeclaw-workspace/Ironeo:/workspace/Ironeo
       - ../claudeclaw-workspace/Ironeo-mobile:/workspace/Ironeo-mobile
+      - /home/claudeclaw/SecondBrain:/home/claudeclaw/SecondBrain
+      - ./bots/adrien/claude-state:/workspace/bots/adrien
+      - ./bots/mathis/claude-state:/workspace/bots/mathis
 
   adrien:
     build: .
@@ -87,7 +95,11 @@ services:
     volumes:
       - ./bots/adrien/workspace:/workspace
       - ./bots/adrien/claude-state:/workspace/.claude
+      - ./bots/adrien/claude-state/claudeclaw:/home/claudeclaw/.claude/claudeclaw
       - ../claudeclaw-workspace/Ironeo:/workspace/Ironeo
       - ../claudeclaw-workspace/Ironeo-mobile:/workspace/Ironeo-mobile
+      - /home/claudeclaw/SecondBrain:/home/claudeclaw/SecondBrain
+      - ./bots/mathis/claude-state:/workspace/bots/mathis
+      - ./bots/mathys/claude-state:/workspace/bots/mathys
 
   # Nouveau bot = copier ce bloc, changer le nom, créer le dossier bots/<nom>/
