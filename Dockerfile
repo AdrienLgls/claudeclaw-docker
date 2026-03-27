@@ -14,9 +14,11 @@ RUN npm install -g @anthropic-ai/claude-code
 COPY claudeclaw-src/ /opt/claudeclaw/
 RUN cd /opt/claudeclaw && bun install --frozen-lockfile
 
-WORKDIR /workspace
+# Créer un utilisateur non-root (Claude Code refuse root avec --dangerously-skip-permissions)
+RUN useradd -m -u 1001 -s /bin/bash claudeclaw
+USER claudeclaw
+ENV HOME=/home/claudeclaw
 
-# Claude Code needs HOME to store its state
-ENV HOME=/root
+WORKDIR /workspace
 
 CMD ["bun", "run", "/opt/claudeclaw/src/index.ts", "start"]

@@ -28,14 +28,16 @@ services:
       - ../claudeclaw-workspace/Ironeo:/workspace/Ironeo
       - ../claudeclaw-workspace/Ironeo-mobile:/workspace/Ironeo-mobile
 
+  adrien:
+    build: .
+    restart: always
+    working_dir: /workspace
+    environment:
+      - CLAUDE_CODE_OAUTH_TOKEN=${CLAUDE_CODE_OAUTH_TOKEN}
+    volumes:
+      - ./bots/adrien/workspace:/workspace
+      - ./bots/adrien/claude-state:/workspace/.claude
+      - ../claudeclaw-workspace/Ironeo:/workspace/Ironeo
+      - ../claudeclaw-workspace/Ironeo-mobile:/workspace/Ironeo-mobile
+
   # Nouveau bot = copier ce bloc, changer le nom, créer le dossier bots/<nom>/
-  # exemple:
-  # adrien:
-  #   build: .
-  #   restart: always
-  #   working_dir: /workspace
-  #   environment:
-  #     - CLAUDE_CODE_OAUTH_TOKEN=${CLAUDE_CODE_OAUTH_TOKEN}
-  #   volumes:
-  #     - ./bots/adrien/workspace:/workspace
-  #     - ./bots/adrien/claude-state:/workspace/.claude
