@@ -29,4 +29,7 @@ RUN bash /opt/claudeclaw-config/install.sh /home/claudeclaw/.claude
 
 WORKDIR /workspace
 
-CMD ["bun", "run", "/opt/claudeclaw/src/index.ts", "start"]
+COPY --chown=claudeclaw:claudeclaw entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
