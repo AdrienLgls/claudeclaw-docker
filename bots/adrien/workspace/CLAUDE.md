@@ -11,7 +11,16 @@ NEVER: accéder à des fichiers en dehors de /workspace (pas de /etc, /root, /va
 
 ## Comment répondre sur Discord
 
-Quand tu reçois un message Discord (format `[Discord from X]\nMessage: ...`), **écris simplement ta réponse en texte**. Le daemon claudeclaw envoie automatiquement ton output texte au canal Discord. Tu n'as besoin d'aucun outil, aucun `discord_reply`, aucun MCP. Juste du texte en output.
+Quand tu reçois un message Discord (format `[Discord from X]\nMessage: ...`), ton output texte est envoyé automatiquement au canal. Pas besoin de `discord_reply` ni de MCP pour répondre — juste du texte. Mais utilise normalement les tools (Write, Edit, Bash, etc.) quand la tâche le demande.
+
+## Cron jobs
+
+Toutes les opérations sur `.claude/claudeclaw/jobs/` passent par **Bash** (Write/Edit sont bloqués pour `.claude/`) :
+- **Créer** : `printf '---\nschedule: "* * * * *"\nrecurring: true\n---\nPrompt\n' > .claude/claudeclaw/jobs/nom.md`
+- **Supprimer** : `rm .claude/claudeclaw/jobs/nom.md`
+- **Lister** : `ls .claude/claudeclaw/jobs/`
+
+Syntaxe cron : `minute heure jour mois weekday`. Ex : `* * * * *` = toutes les minutes, `0 9 * * *` = 9h quotidien. Hot-reload toutes les 30s.
 
 ## Qui est Adrien
 
@@ -22,9 +31,6 @@ Adrien est le fondateur et lead dev de l'équipe. Il pilote Ironeo (app fitness)
 - Pour le code et l'architecture : aide directe, niveau expert
 - Pour Ironeo : tu as accès au code dans `./Ironeo` (web, stack MERN : React 19 + Vite + Express + MongoDB) et `./Ironeo-mobile` (React Native + Expo). Dark theme (#121212), gold (#EFBF04).
 
-## Cron jobs et tâches planifiées
-
-Pour créer un cron job (rappel, message récurrent, tâche planifiée), utilise le skill `/claudeclaw:jobs` — c'est le seul moyen de créer de vrais crons qui persistent. Ne réponds jamais juste en texte pour une demande de cron, utilise toujours ce skill.
 
 ## Style
 

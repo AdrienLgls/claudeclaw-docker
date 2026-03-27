@@ -1,12 +1,57 @@
 services:
 
+  # ── Mémoires persistantes (claude-mem workers) ──────────────────────────────
+  # Chaque bot a son propre worker sur un port dédié, avec ses propres données.
+  # network_mode: host → accessible à 127.0.0.1 depuis tous les containers.
+
+  claude-mem-adrien:
+    build: .
+    restart: always
+    network_mode: host
+    entrypoint: ["bun", "/opt/claude-mem/plugin/scripts/worker-wrapper.cjs"]
+    environment:
+      - CLAUDE_MEM_WORKER_PORT=37777
+      - CLAUDE_MEM_DATA_DIR=/claude-mem-data
+      - CLAUDE_MEM_CHROMA_ENABLED=false
+    volumes:
+      - ./bots/adrien/claude-mem:/claude-mem-data
+
+  claude-mem-mathis:
+    build: .
+    restart: always
+    network_mode: host
+    entrypoint: ["bun", "/opt/claude-mem/plugin/scripts/worker-wrapper.cjs"]
+    environment:
+      - CLAUDE_MEM_WORKER_PORT=37778
+      - CLAUDE_MEM_DATA_DIR=/claude-mem-data
+      - CLAUDE_MEM_CHROMA_ENABLED=false
+    volumes:
+      - ./bots/mathis/claude-mem:/claude-mem-data
+
+  claude-mem-mathys:
+    build: .
+    restart: always
+    network_mode: host
+    entrypoint: ["bun", "/opt/claude-mem/plugin/scripts/worker-wrapper.cjs"]
+    environment:
+      - CLAUDE_MEM_WORKER_PORT=37779
+      - CLAUDE_MEM_DATA_DIR=/claude-mem-data
+      - CLAUDE_MEM_CHROMA_ENABLED=false
+    volumes:
+      - ./bots/mathys/claude-mem:/claude-mem-data
+
+  # ── Bots Discord ─────────────────────────────────────────────────────────────
+
   mathis:
     build: .
     restart: always
     network_mode: host
     working_dir: /workspace
+    depends_on:
+      - claude-mem-mathis
     environment:
       - CLAUDE_CODE_OAUTH_TOKEN=${CLAUDE_CODE_OAUTH_TOKEN}
+      - CLAUDE_MEM_WORKER_PORT=37778
     volumes:
       - ./bots/mathis/workspace:/workspace
       - ./bots/mathis/claude-state:/workspace/.claude
@@ -18,8 +63,11 @@ services:
     restart: always
     network_mode: host
     working_dir: /workspace
+    depends_on:
+      - claude-mem-mathys
     environment:
       - CLAUDE_CODE_OAUTH_TOKEN=${CLAUDE_CODE_OAUTH_TOKEN}
+      - CLAUDE_MEM_WORKER_PORT=37779
     volumes:
       - ./bots/mathys/workspace:/workspace
       - ./bots/mathys/claude-state:/workspace/.claude
@@ -31,8 +79,11 @@ services:
     restart: always
     network_mode: host
     working_dir: /workspace
+    depends_on:
+      - claude-mem-adrien
     environment:
       - CLAUDE_CODE_OAUTH_TOKEN=${CLAUDE_CODE_OAUTH_TOKEN}
+      - CLAUDE_MEM_WORKER_PORT=37777
     volumes:
       - ./bots/adrien/workspace:/workspace
       - ./bots/adrien/claude-state:/workspace/.claude

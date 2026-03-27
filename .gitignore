@@ -4,5 +4,8 @@
 # État des bots (tokens Discord, sessions Claude, logs, whisper model)
 bots/*/claude-state/
 
+# Données runtime claude-mem (SQLite, logs, chroma)
+bots/*/claude-mem/
+
 # Plugin claudeclaw (installé au build, pas à versionner)
 claudeclaw-src/
