@@ -3,22 +3,20 @@ services:
   mathis:
     build: .
     restart: always
+    network_mode: host
     working_dir: /workspace
     environment:
       - CLAUDE_CODE_OAUTH_TOKEN=${CLAUDE_CODE_OAUTH_TOKEN}
     volumes:
-      # Workspace du bot (CLAUDE.md, todo, etc.)
       - ./bots/mathis/workspace:/workspace
-      # Config claudeclaw : lu depuis process.cwd()/.claude/claudeclaw/settings.json
-      # → doit être monté dans le workspace, PAS dans $HOME
       - ./bots/mathis/claude-state:/workspace/.claude
-      # Projets partagés en lecture/écriture (les bots peuvent coder)
       - ../claudeclaw-workspace/Ironeo:/workspace/Ironeo
       - ../claudeclaw-workspace/Ironeo-mobile:/workspace/Ironeo-mobile
 
   mathys:
     build: .
     restart: always
+    network_mode: host
     working_dir: /workspace
     environment:
       - CLAUDE_CODE_OAUTH_TOKEN=${CLAUDE_CODE_OAUTH_TOKEN}
@@ -31,6 +29,7 @@ services:
   adrien:
     build: .
     restart: always
+    network_mode: host
     working_dir: /workspace
     environment:
       - CLAUDE_CODE_OAUTH_TOKEN=${CLAUDE_CODE_OAUTH_TOKEN}
