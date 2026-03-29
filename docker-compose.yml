@@ -9,36 +9,24 @@ services:
     restart: always
     network_mode: host
     entrypoint: ["bun", "/opt/claude-mem/plugin/scripts/worker-wrapper.cjs"]
-    environment:
-      - CLAUDE_MEM_WORKER_PORT=37777
-      - CLAUDE_MEM_DATA_DIR=/claude-mem-data
-      - CLAUDE_MEM_CHROMA_ENABLED=false
     volumes:
-      - ./bots/adrien/claude-mem:/claude-mem-data
+      - ./bots/adrien/claude-mem:/home/claudeclaw/.claude-mem
 
   claude-mem-mathis:
     build: .
     restart: always
     network_mode: host
     entrypoint: ["bun", "/opt/claude-mem/plugin/scripts/worker-wrapper.cjs"]
-    environment:
-      - CLAUDE_MEM_WORKER_PORT=37778
-      - CLAUDE_MEM_DATA_DIR=/claude-mem-data
-      - CLAUDE_MEM_CHROMA_ENABLED=false
     volumes:
-      - ./bots/mathis/claude-mem:/claude-mem-data
+      - ./bots/mathis/claude-mem:/home/claudeclaw/.claude-mem
 
   claude-mem-mathys:
     build: .
     restart: always
     network_mode: host
     entrypoint: ["bun", "/opt/claude-mem/plugin/scripts/worker-wrapper.cjs"]
-    environment:
-      - CLAUDE_MEM_WORKER_PORT=37779
-      - CLAUDE_MEM_DATA_DIR=/claude-mem-data
-      - CLAUDE_MEM_CHROMA_ENABLED=false
     volumes:
-      - ./bots/mathys/claude-mem:/claude-mem-data
+      - ./bots/mathys/claude-mem:/home/claudeclaw/.claude-mem
 
   # ── Bots Discord ─────────────────────────────────────────────────────────────
 
@@ -91,7 +79,7 @@ services:
       - claude-mem-adrien
     environment:
       - CLAUDE_CODE_OAUTH_TOKEN=${CLAUDE_CODE_OAUTH_TOKEN}
-      - CLAUDE_MEM_WORKER_PORT=37777
+      - CLAUDE_MEM_WORKER_PORT=37776
     volumes:
       - ./bots/adrien/workspace:/workspace
       - ./bots/adrien/claude-state:/workspace/.claude
